@@ -76,8 +76,18 @@ setGeneric(name="integrateIt",
 setMethod(f="integrateIt",
           definition=function(x, y, a, b, rule){
             # Check to make sure rule is specified correctly
-            
-            
+            if(rule != "Trap" & rule != "Simp"){
+              stop("You need to specify either the `Trap' (Trapezoidal) or `Simp' (Simpson's) rule of integration.")
+            }
+            # Check to make sure x is >= 2 (otherwise, we can't take an integral)
+            # This means that n will always be >= 1
+            if(length(x) <= 1){
+              stop("We can't calculate an integral under a single point.")
+            }
+            # Check to make sure there is a corresponding f(x) for each x
+            if(length(x) != length(y)){
+              stop("The number of observations in x and y differs. You need to input a f(x) for every x.")
+            }
             # Calculating n, number of panels, which will be x-1
             n <- length(x) - 1
             # Calculating h, equal to b-a/n
@@ -85,10 +95,13 @@ setMethod(f="integrateIt",
             # Finding index values of x that correspond to starting and ending values
             index.a <- which(x == a)
             index.b <- which(x == b)
-            
+            # Check to make sure start and end values actually exist 
+            if(length(index.a) == 0 | length(index.b) == 0){
+              stop("Please choose starting (a) and ending (b) values that correspond to known x values.")
+            }
             # Trapezoidal calculation
-            if(rule == "Trapezoidal"){
-              print("Trapezoidal!")
+            if(rule == "Trap"){
+              print("Trapezoidal rule calculation!")
               
               # Calculation will differ if n=1 or if n>1
               if(n == 1){
