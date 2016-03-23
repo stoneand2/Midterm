@@ -33,18 +33,12 @@ An object of class `Trapezoid' or 'Simpson' containing
 \description{
 The integrateIt package allows the user to conduct integration using the Trapezoidal or Simpson's approximations.
 
-A user-friendly function to conduct integration using the Trapezoidal rule or Simpson's rule.
-}
-\examples{
-integrateIt(x=1:7, y=2:8, a=1, b=7, rule="Trap")
-
+integrateIt() is a user-friendly function to conduct integration using the Trapezoidal rule or Simpson's rule.
 }
 \author{
 Andy Stone: \email{arstone@wustl.edu}
-
-Andy Stone: \email{arstone@wustl.edu}
 }
 \seealso{
-\code{\link{Trapezoid}}
+\code{\link{Trapezoid}, \link{Simpson}}
 }
 

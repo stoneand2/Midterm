@@ -1,6 +1,6 @@
 #' Integration by the Trapezoidal rule or Simpson's rule.
 #'
-#' A user-friendly function to conduct integration using the Trapezoidal rule or Simpson's rule.
+#' integrateIt() is a user-friendly function to conduct integration using the Trapezoidal rule or Simpson's rule.
 #'
 #' @param x A numeric vector of x values.
 #' @param y A numeric vector of y=f(x) values.
@@ -17,7 +17,7 @@
 #' \item \code{result} The numeric result of integration from a to b of f(x) with respect to x using Simpson's rule.
 #' }
 #' @author Andy Stone: \email{arstone@@wustl.edu}
-#' @seealso \code{\link{Trapezoid}}
+#' @seealso \code{\link{Trapezoid}, \link{Simpson}}
 #' @rdname integrateIt
 #' @aliases integrateIt,ANY-method
 #' @export
@@ -78,7 +78,9 @@ setMethod(f="integrateIt",
                 result <- h/2 * (y[index.a] + y[index.b] + sum(2*y[(index.a+1):(index.b-1)]))
               }
               # Creates new instance of Trapezoid class with corresponding values 
+              if(return==T){
               return(new("Trapezoid", x=x, y=y, a=a, b=b, result=result))
+              }
             }
             
             # Simpson's rule

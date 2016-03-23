@@ -4,10 +4,12 @@
 \name{Trapezoid-class}
 \alias{Trapezoid-class}
 \alias{initialize,Trapezoid-method}
+\alias{plot,Trapezoid-method}
+\alias{print,Trapezoid-method}
 \title{A Trapezoid object}
 \description{
 Object of class \code{Trapezoid} are created by the \code{integrateIt} function. Objects of
-this class have their own \code{print} method.
+this class have their own \code{print} and \code{plot} methods.
 }
 \details{
 An object of the class `Trapezoid' has the following slots:

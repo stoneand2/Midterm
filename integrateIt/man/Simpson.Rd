@@ -4,6 +4,7 @@
 \name{Simpson-class}
 \alias{Simpson-class}
 \alias{initialize,Simpson-method}
+\alias{print,Simpson-method}
 \title{A Simpson object}
 \description{
 Object of class \code{Simpson} are created by the \code{integrateIt} function. Objects of
