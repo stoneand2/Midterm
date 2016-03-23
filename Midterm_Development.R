@@ -31,19 +31,18 @@ setClass(Class="Trapezoid",
            a = numeric(),
            b = numeric(),
            result = numeric()
-         )
+         ), 
+         # Same validity checks as in integrateIt, just in case user makes object manually
+         validity=function(object){
+           # This calls integrateIt, and just suppresses integrateIt's default return of a new object
+           # I do this so I don't need to write out all the checks again
+           integrateIt(x=object@x, y=object@y, a=object@a, b=object@b, rule="Trap", return=F)
+         }
 )
 
 #' @export
 setMethod("initialize", "Trapezoid", 
-          function(.Object, x, y, a, b){
-            # Calculation will differ if n=1 or if n>1
-            if(n == 1){
-              result <- h/2 * (y[index.a] + y[index.b])
-            }
-            if(n > 1){
-              result <- h/2 * (y[index.a] + y[index.b] + sum(2*y[(index.a+1):(index.b-1)]))
-            }
+          function(.Object, x, y, a, b, result){
             .Object@x <- x
             .Object@y <- y
             .Object@a <- a
@@ -69,7 +68,13 @@ setClass(Class="Simpson",
            a = numeric(),
            b = numeric(),
            result = numeric()
-         )
+         ), 
+         # Same validity checks as in integrateIt, just in case user makes object manually
+         validity=function(object){
+           # This calls integrateIt, and just suppresses integrateIt's default return of a new object
+           # I do this so I don't need to write out all the checks again
+           integrateIt(x=object@x, y=object@y, a=object@a, b=object@b, rule="Simp", return=F)
+           }
 )
 
 #' @export
@@ -87,13 +92,13 @@ setMethod("initialize", "Simpson",
 
 # Creating integrateIt generic and method, starting with just Trapezoidal rule 
 setGeneric(name="integrateIt",
-           def=function(x, y, a, b, rule)
+           def=function(x, y, a, b, rule, return=T)
            {standardGeneric("integrateIt")}
 )
 
 
 setMethod(f="integrateIt",
-          definition=function(x, y, a, b, rule){
+          definition=function(x, y, a, b, rule, return=T){
             # Check to make sure rule is specified correctly
             if(rule != "Trap" & rule != "Simp"){
               stop("You need to specify either the `Trap' (Trapezoidal) or `Simp' (Simpson's) rule of integration.")
@@ -109,11 +114,7 @@ setMethod(f="integrateIt",
             if(length(x) != length(y)){
               stop("The number of observations in x and y differs. You need to input a f(x) for every x.")
             }
-            
-            # Calculating n, number of panels, which will be x-1
-            # n <- length(x) - 1
-            # Calculating h, equal to b-a/n
-            # h <- (b-a) / (n)
+
             # Finding index values of x that correspond to starting and ending values
             index.a <- which(x == a)
             index.b <- which(x == b)
@@ -140,14 +141,14 @@ setMethod(f="integrateIt",
             # Trapezoidal rule calculation
             if(rule == "Trap"){
               # Calculation will differ if n=1 or if n>1
-              #if(n == 1){
-              #  result <- h/2 * (y[index.a] + y[index.b])
-              #}
-              #if(n > 1){
-              #  result <- h/2 * (y[index.a] + y[index.b] + sum(2*y[(index.a+1):(index.b-1)]))
-              #}
+              if(n == 1){
+                result <- h/2 * (y[index.a] + y[index.b])
+              }
+              if(n > 1){
+                result <- h/2 * (y[index.a] + y[index.b] + sum(2*y[(index.a+1):(index.b-1)]))
+              }
               # Creates new instance of Trapezoid class with corresponding values 
-              return(new("Trapezoid", x=x, y=y, a=a, b=b))
+              return(new("Trapezoid", x=x, y=y, a=a, b=b, result=result))
             }
 
           # Simpson's rule
@@ -170,7 +171,9 @@ setMethod(f="integrateIt",
             if(n > 2){
               result <- h/3 * (y[index.a] + 4*y[index.b-1] + y[index.b] + sum(rep(c(4,2), times=(n-2)/2)*y[(index.a+1):(index.b-2)]))
             }
+            if(return==T){
             return(new("Simpson", x=x, y=y, a=a, b=b, result=result))
+            }
           }
     }      
 )
