@@ -45,6 +45,11 @@ setMethod(f="integrateIt",
               stop("The number of observations in x and y differs. You need to input a f(x) for every x.")
             }
             
+            # Sorting to ensure correct calculation of integrals
+            theorder <- order(x)
+            x <- sort(x)
+            y <- y[theorder]
+            
             # Finding index values of x that correspond to starting and ending values
             index.a <- which(x == a)
             index.b <- which(x == b)

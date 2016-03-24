@@ -65,6 +65,18 @@ setMethod(f="plot",
           signature="Simpson",
           # The method itself
           definition=function(x=NULL, y=x, ...){
+            length.x <- length(x@x)
+            indices.for.midpoints <- seq(from=x@a, to=x@b, by=2)
+            
+            mid.function <- function(){
+            (x@x[i] + x@x[i+1]) / 2
+            }
+            sapply(1:length(x@x)-1, FUN=mid.function)
+            
+            
+            
+            
+            
             plot(x=NULL,
                  y=NULL,
                  # Limits slightly above/below min/max values of x, f(x)
