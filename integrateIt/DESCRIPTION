@@ -1,10 +1,10 @@
 Package: integrateIt
 Type: Package
-Title: What the package does (short line)
+Title: Conducting integration using Trapezoidal, Simpson's rules.
 Version: 1.0
 Date: 2016-03-23
-Author: Who wrote it
-Maintainer: Who to complain to <yourfault@somewhere.net>
-Description: More about what it does (maybe more than one line)
+Author: Andy Stone
+Maintainer: Andy Stone <arstone@wustl.edu>
+Description: The integrateIt package allows the user to conduct integration using the Trapezoidal or Simpson's approximations.
 License: What license is it under?
 RoxygenNote: 5.0.1

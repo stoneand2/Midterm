@@ -3,6 +3,7 @@
 S3method(print,Simpson)
 S3method(print,Trapezoid)
 export(integrateIt)
+export(tolTest)
 exportClasses(Simpson)
 exportClasses(Trapezoid)
 exportMethods(initialize)

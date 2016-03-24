@@ -82,51 +82,51 @@ setMethod(f="plot",
           }
 )
 
-# Midpoint
-v <- (a + b) / 2
-index.v <- which(x == v)
-# f(a)
-f.a <- y[index.a]
-# f(v)
-f.v <- y[index.v]
-# f(w)
-f.w <- y[index.b]
-
-# first fraction
-((x - v)*(x - b)) / ((a - v)*(a - b))
-
-# second fraction
-((x - a)*(x - b)) / ((v - a)*(v - b))
-
-# third fraction
-((x - a)*(x - v)) / ((b - a)*(b - v))
-
-function1 <- function(x, y, a, b){
-  v <- (x[i] + x[i+1]) / 2
-  print(v)
-  index.v <- which(x == v)
-  # f(a)
-  f.a <- y[index.a]
-  # f(v)
-  f.v <- y[index.v]
-  # f(w)
-  f.b <- y[index.b]
-  
-  return((f.a*((x - v)*(x - b)) / ((a - v)*(a - b))) + (f.v*((x - a)*(x - b)) / ((v - a)*(v - b))) +
-    (f.b * ((x - a)*(x - v)) / ((b - a)*(b - v))))
-  
-}
-
-sapply(1:7, FUN=function1(x=x, y=y, a=1, b=7))
-
-
-
-
-
-
-
-
-
-
-
-
+# # Midpoint
+# v <- (a + b) / 2
+# index.v <- which(x == v)
+# # f(a)
+# f.a <- y[index.a]
+# # f(v)
+# f.v <- y[index.v]
+# # f(w)
+# f.w <- y[index.b]
+# 
+# # first fraction
+# ((x - v)*(x - b)) / ((a - v)*(a - b))
+# 
+# # second fraction
+# ((x - a)*(x - b)) / ((v - a)*(v - b))
+# 
+# # third fraction
+# ((x - a)*(x - v)) / ((b - a)*(b - v))
+# 
+# function1 <- function(x, y, a, b){
+#   v <- (x[i] + x[i+1]) / 2
+#   print(v)
+#   index.v <- which(x == v)
+#   # f(a)
+#   f.a <- y[index.a]
+#   # f(v)
+#   f.v <- y[index.v]
+#   # f(w)
+#   f.b <- y[index.b]
+#   
+#   return((f.a*((x - v)*(x - b)) / ((a - v)*(a - b))) + (f.v*((x - a)*(x - b)) / ((v - a)*(v - b))) +
+#     (f.b * ((x - a)*(x - v)) / ((b - a)*(b - v))))
+#   
+# }
+# 
+# sapply(1:7, FUN=function1(x=x, y=y, a=1, b=7))
+# 
+# 
+# 
+# 
+# 
+# 
+# 
+# 
+# 
+# 
+# 
+# 
