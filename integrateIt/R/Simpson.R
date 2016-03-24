@@ -66,17 +66,13 @@ setMethod(f="plot",
           # The method itself
           definition=function(x=NULL, y=x, ...){
             length.x <- length(x@x)
-            indices.for.midpoints <- seq(from=x@a, to=x@b, by=2)
-            
-            mid.function <- function(){
+            # Function to get the X values for the midpoints
+            mid.function <- function(i){
             (x@x[i] + x@x[i+1]) / 2
             }
-            sapply(1:length(x@x)-1, FUN=mid.function)
-            
-            
-            
-            
-            
+            # Getting the X values for the midpoints
+            midpoint.xs <- unlist(sapply(1:(length(x@x)-1), FUN=mid.function))
+            # Opening plot
             plot(x=NULL,
                  y=NULL,
                  # Limits slightly above/below min/max values of x, f(x)
@@ -84,61 +80,36 @@ setMethod(f="plot",
                  ylim=c(min(x@y)-1, max(x@y)+1), 
                  xlab="X",
                  ylab="f(X)", 
-                 main="Graphical Representation of Trapezoidal Integration", 
+                 main="Graphical Representation of Simpson's Integration", 
                  cex.main=1)
+            # Plotting observed points
             points(x@x, x@y, pch=16, cex=0.5)
             abline(h=0)
-            invisible(sapply(1:(length(x@x)-1), FUN=function(i) segments(x0=x@x[i], y0=x@y[i], x1=x@x[i+1], y1=x@y[i+1])))
+            
+            # Calculating f(m) (y values for midpoints)
+            mid.fy.calculator <- function(i){
+              # X values between the a and b
+              X <- seq(from=x@x[i-1], to=x@x[i+1], length.out=100)
+              # Using those X values as X in our calculation of p(x)
+              # Calculates p(x) for range before and after the midpoint, from a to b
+              # First part of equation on slide 14
+              first.part <- (x@y[i-1]) * ((X - x@x[i])*(X - x@x[i+1]))/((x@x[i-1] - x@x[i])*(x@x[i-1] - x@x[i+1]))
+              # Second part of equation on slide 14
+              second.part <- (x@y[i]) * ((X - x@x[i-1])*(X - x@x[i+1]))/((x@x[i] - x@x[i-1])*(x@x[i] - x@x[i+1]))
+              # Third part
+              third.part <- (x@y[i+1]) * ((X - x@x[i-1])*(X - x@x[i]))/((x@x[i+1] - x@x[i-1])*(x@x[i+1] - x@x[i])) 
+              # Calculates p(x) for range before and after the midpoint, from a to b
+              pofx <- first.part + second.part + third.part
+              # Adds the parabola to the graph
+              colors <- c("red","forestgreen","dodgerblue4")
+              lines(X, pofx, col=colors[(i%%3)+1])
+            }
+            # Actually runs the function
+            invisible(unlist(sapply(2:(length(x@x)-1), FUN=mid.fy.calculator)))
+            # Adds the vertical lines to segment zones
             invisible(sapply(1:(length(x@x)), FUN=function(i) segments(x0=x@x[i], y0=0, x1=x@x[i], y1=x@y[i])))
             
           }
 )
 
-# # Midpoint
-# v <- (a + b) / 2
-# index.v <- which(x == v)
-# # f(a)
-# f.a <- y[index.a]
-# # f(v)
-# f.v <- y[index.v]
-# # f(w)
-# f.w <- y[index.b]
-# 
-# # first fraction
-# ((x - v)*(x - b)) / ((a - v)*(a - b))
-# 
-# # second fraction
-# ((x - a)*(x - b)) / ((v - a)*(v - b))
-# 
-# # third fraction
-# ((x - a)*(x - v)) / ((b - a)*(b - v))
-# 
-# function1 <- function(x, y, a, b){
-#   v <- (x[i] + x[i+1]) / 2
-#   print(v)
-#   index.v <- which(x == v)
-#   # f(a)
-#   f.a <- y[index.a]
-#   # f(v)
-#   f.v <- y[index.v]
-#   # f(w)
-#   f.b <- y[index.b]
-#   
-#   return((f.a*((x - v)*(x - b)) / ((a - v)*(a - b))) + (f.v*((x - a)*(x - b)) / ((v - a)*(v - b))) +
-#     (f.b * ((x - a)*(x - v)) / ((b - a)*(b - v))))
-#   
-# }
-# 
-# sapply(1:7, FUN=function1(x=x, y=y, a=1, b=7))
-# 
-# 
-# 
-# 
-# 
-# 
-# 
-# 
-# 
-# 
-# 
-# 
+

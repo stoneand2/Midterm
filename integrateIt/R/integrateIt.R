@@ -16,6 +16,18 @@
 #' \item \code{b} An numeric ending value, corresponding to a value of x, for integration.
 #' \item \code{result} The numeric result of integration from a to b of f(x) with respect to x using Simpson's rule.
 #' }
+#' 
+#' @examples
+#' trap.1 <- integrateIt(x=1:21, y=cos(1:21), a=1, b=21, rule="Trap")
+#' print(trap.1)
+#' plot(trap.1)
+#' 
+#' easyfun <- function(x){
+#' x^2
+#' }
+#' tolTest(fun=easyfun, a=1, b=7, start=2, rule="Trap", correct=114, tolerance=1)
+#' 
+#' 
 #' @author Andy Stone: \email{arstone@@wustl.edu}
 #' @seealso \code{\link{Trapezoid}, \link{Simpson}}
 #' @rdname integrateIt

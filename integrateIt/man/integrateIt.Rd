@@ -35,6 +35,18 @@ The integrateIt package allows the user to conduct integration using the Trapezo
 
 integrateIt() is a user-friendly function to conduct integration using the Trapezoidal rule or Simpson's rule.
 }
+\examples{
+trap.1 <- integrateIt(x=1:21, y=cos(1:21), a=1, b=21, rule="Trap")
+print(trap.1)
+plot(trap.1)
+
+easyfun <- function(x){
+x^2
+}
+tolTest(fun=easyfun, a=1, b=7, start=2, rule="Trap", correct=114, tolerance=1)
+
+
+}
 \author{
 Andy Stone: \email{arstone@wustl.edu}
 }
