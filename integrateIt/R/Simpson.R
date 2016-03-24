@@ -101,6 +101,7 @@ setMethod(f="plot",
               # Calculates p(x) for range before and after the midpoint, from a to b
               pofx <- first.part + second.part + third.part
               # Adds the parabola to the graph
+              # Alternating colors for the parabolas
               colors <- c("red","forestgreen","dodgerblue4")
               lines(X, pofx, col=colors[(i%%3)+1])
             }

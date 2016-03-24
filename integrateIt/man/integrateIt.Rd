@@ -40,6 +40,10 @@ trap.1 <- integrateIt(x=1:21, y=cos(1:21), a=1, b=21, rule="Trap")
 print(trap.1)
 plot(trap.1)
 
+simp.1 <- integrateIt(x=1:21, y=cos(1:21), a=1, b=21, rule="Simp")
+print(simp.1)
+plot(simp.1)
+
 easyfun <- function(x){
 x^2
 }
